@@ -1,9 +1,9 @@
 #include <stdio.h>
 /**
-  *main - Entry point 
-  *Description: program display all numbers of base 16
-  *Return: 0 always success
-  */
+ *main - Entry point
+ *Description: program display all numbers of base 16
+ *Return: 0 always success
+ */
 int main(void)
 {
 	int n;
