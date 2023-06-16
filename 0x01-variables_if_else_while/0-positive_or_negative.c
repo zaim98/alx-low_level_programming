@@ -7,7 +7,9 @@
 /* betty style doc for function main goes there */
 /**
   *main - main poit
-  *Return : (0) always success
+  *Description: This code gets number
+  *then tells us if its zero negative or possitive
+  *Return: (0) always success
   */
 int main(void)
 {
