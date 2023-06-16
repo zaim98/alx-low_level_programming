@@ -6,17 +6,38 @@
  */
 int main(void)
 {
-	int n1, n2;
+	int c = 0;
+	int f_d;
+	int l_d;
 
-	for (n1 = 0; n1 <= 9; n1++)
+	int c2;
+	int f_d2;
+	int l_d2;
+	while (c <= 98)
 	{
-		for (n2 = 0; n2 <= 9; n2++)
+		f_d = (c / 10 + '0');
+		l_d = (c % 10 + '0');
+		c2 = 0;
+		while (c2 <= 99)
 		{
-			putchar('0' + n1);
-			putchar('0' + n2);
-			putchar(',');
-			putchar(' ');
+			f_d2 = (c2 / 10 + '0');
+			l_d2 = (c2 % 10 + '0');
+			if (c < c2)
+			{
+				putchar(f_d);
+				putchar(l_d);
+				putchar(' ');
+				putchar(f_d2);
+				putchar(l_d2);
+				if (c != 98)
+				{
+					putchar(',');
+					putchar(' ');
+				}
+			}
+			c2++;
 		}
+		c++;
 	}
 	putchar('\n');
 	return (0);
