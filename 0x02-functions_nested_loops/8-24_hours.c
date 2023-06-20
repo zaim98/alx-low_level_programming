@@ -2,11 +2,12 @@
 /**
  *jack_bauer - Entry point
  *Jack Bauer, starting from 00:00 to 23:59.
- *Return: 
+ *Return: always success
  */
 void jack_bauer(void)
 {
 	int h, m;
+
 	for (h = 0; h <= 23; h++)
 	{
 		for (m = 0; m <= 59; m++)
