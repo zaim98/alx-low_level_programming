@@ -2,13 +2,14 @@
 /**
  * _abs - Entry point
  * Description: coputes the absulate value of integer
- * Return: absulate value
+ * Return: absulate valu
+ * @n: the number to compute
  */
 int _abs(int n)
 {
-	if (n <= 0)
+	if (n >= 0)
 	{
-		return(1);
+		return (1);
 	}
 	else
 	{
