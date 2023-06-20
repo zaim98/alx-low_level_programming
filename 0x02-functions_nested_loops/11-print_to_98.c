@@ -13,10 +13,10 @@ void print_to_98(int n)
 	int tir;
 
 	if (n > 98)
-		for (tir = n; tir >= 98; tir--)
+		for (tir = n; tir > 98; tir--)
 			printf("%d, ", tir);
 	else
-		for (tir = n; tir <= 98; tir++)
+		for (tir = n; tir < 98; tir++)
 			printf("%d , ", tir);
-	printf("\n");
+	printf("98\n");
 }
