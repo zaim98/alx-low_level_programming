@@ -17,6 +17,6 @@ void print_to_98(int n)
 			printf("%d, ", tir);
 	else
 		for (tir = n; tir < 98; tir++)
-			printf("%d , ", tir);
+			printf("%d, ", tir);
 	printf("98\n");
 }
