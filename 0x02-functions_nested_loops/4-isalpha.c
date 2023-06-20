@@ -1,11 +1,11 @@
 /**
- *_islower - Entry poit
+ *_isalpha - Entry poit
  *Description: This code checks for lowercase
  *Return: 1 if it's lowercase
  *else: 0
  *@c: The charector in ASCII CODE
  */
-int _islower(int c)
+int _isalpha(int c)
 {
 	if ((c >= 97 && c <= 122) || (c >= 65 && c <= 90))
 	{
