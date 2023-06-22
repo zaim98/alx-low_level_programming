@@ -1,11 +1,11 @@
 #include "main.h"
 /**
-  *print_line - Entry point
+  *print_diagonal - Entry point
   *Description: This program prints line.
   *@n: arg
   *Return: always 0 success
  */
-void print_line(int n)
+void print_diagonal(int n)
 {
 	int i = 0, j;
 
