@@ -2,23 +2,23 @@
 /**
   *print_square - Entry
   *Description: checks square
-  *@n : number to be printed
+  *@size: number to be printed
   *Return:void
  */
-void print_square(int n)
+void print_square(int size)
 {
 	int num = 0, count;
 
-	while (num < n && n > 0)
+	while (num < size && size > 0)
 	{
 		count = 0;
-		while (count < n)
+		while (count < size)
 		{
 			_putchar('#');
 			count++;
 		}
 		_putchar('\n');
-		num;
+		num++;
 	}
 	if (num == 0)
 		_putchar('\n');
