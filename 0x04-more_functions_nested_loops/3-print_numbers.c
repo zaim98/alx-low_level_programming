@@ -1,6 +1,6 @@
 #include "main.h"
 /**
-  *print_numbers - Entry point 
+  *print_numbers - Entry point
   *Description: This program displays numbers from 0 to 9.
   *Return: always 0 success
  */
@@ -15,4 +15,3 @@ void print_numbers(void)
 	}
 	_putchar('\n');
 }
-	
