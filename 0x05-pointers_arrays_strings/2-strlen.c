@@ -1,27 +1,17 @@
 #include "main.h"
-
 /**
- * _atoi - Entry
- * Description: This code Converts a string to an integer.
- * @s: The string to be converted.
- * Return: The integer value of the converted string.
+ * _strlen - Entry
+ * Description: This program Returns the length of a string.
+ * @str: The string to get the length of.
+ *
+ * Return: The length of @str.
  */
-int _atoi(char *s)
+size_t _strlen(const char *str)
 {
-	int sign = 1;
-	unsigned int number = 0;
+	size_t length = 0;
 
-	do {
-		if (*s == '-')
-			sign *= -1;
+	while (*str++)
+		length++;
 
-		else if (*s >= '0' && *s <= '9')
-			number = (number * 10) + (*s - '0');
-
-		else if (number > 0)
-			break;
-
-	} while (*s++);
-
-	return (number * sign);
+	return (length);
 }
