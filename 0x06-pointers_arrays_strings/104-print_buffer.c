@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 /**
- * print_buffer - prints buffer
+ * print_buffer - Entry
+ *Description: This program prints buffer
  * @b: buffer
  * @size: size
  * Return: void
@@ -48,4 +49,3 @@ void print_buffer(char *b, int size)
 		o += 10;
 	}
 }
-
