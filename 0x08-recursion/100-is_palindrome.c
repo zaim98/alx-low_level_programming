@@ -1,7 +1,7 @@
 #include "main.h"
 /**
  * last_index - Entry
- * Description: This program returns the last index of a string (counts the null char)
+ * Description: This program returns the last index
  * @s: pointer the string
  * Return: int
  */
