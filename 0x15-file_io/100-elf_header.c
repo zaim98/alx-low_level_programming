@@ -1,6 +1,8 @@
 #include "main.h"
 #include <elf.h>
-void print_title(char *title);
+
+void ptitle(char *title);
+
 /**
  * errors - prints some errors
  * @msg: the error msg
@@ -8,23 +10,26 @@ void print_title(char *title);
  */
 void errors(char *msg)
 {
+	/* declarations */
+	int len;
+
 	/* writing the error */
-	int len = 0;
 	for (len = 0; msg[len]; len++)
 		;
-
 	write(STDERR_FILENO, msg, len);
+
 	exit(98);
 }
 
 /**
- * print_type - prints type
+ * ptype - prints type
+ *
  * @buffer: contains type info
  * Return: void
  */
-void print_type(char *buffer)
+void ptype(char *buffer)
 {
-	print_title("Type");
+	ptitle("Type");
 	switch (buffer[6])
 	{
 		case ET_NONE:
@@ -50,89 +55,96 @@ void print_type(char *buffer)
 }
 
 /**
- * print_ABI_version - prints the ABI version
+ * pABIversion - prints the ABI version
  * @buffer: contains the ABI version
+ *
  * Return: void
  */
-void print_ABI_version(char *buffer)
+void pABIversion(char *buffer)
 {
-	print_title("ABI Version");
+	/* handling the ABI set */
+	ptitle("ABI Version");
+
 	printf("%d", buffer[8]);
+
 	printf("\n");
 }
 
 /**
-  *Add similar functions with proper comments for print_entry,
-  *print_OS_ABI, print_version, print_data, print_magic, print_class
+ * pentry - prints the ELF entry point address
+ *
  */
+void pentry(void)
+{
+	Elf64_Ehdr h;
+	int i = 0, len = 0;
+	unsigned char *p = (unsigned char *)&h.e_entry;
+
+	printf("  Entry point address:               0x");
+	if (h.e_ident[EI_DATA] == ELFDATA2MSB)
+	{
+		i = h.e_ident[EI_CLASS] == ELFCLASS64 ? 7 : 3;
+		while (!p[i])
+			i--;
+		printf("%x", p[i--]);
+		for (; i >= 0; i--)
+			printf("%02x", p[i]);
+		printf("\n");
+	}
+	else
+	{
+		i = 0;
+		len = h.e_ident[EI_CLASS] == ELFCLASS64 ? 7 : 3;
+		while (!p[i])
+			i++;
+		printf("%x", p[i++]);
+		for (; i <= len; i++)
+			printf("%02x", p[i]);
+		printf("\n");
+	}
+}
+
 /**
- * print_title - printing titles with proper alignment
- * @title: the title
+ * pos - printing the os/abi
+ * @buffer: contains os/abi info
+ *
  * Return: void
  */
-void print_title(char *title)
+void pos(char *buffer)
 {
-	int size = 37;
-	int len, i;
+	/* handling the OS ABI set */
+	ptitle("OS/ABI");
 
-	printf("  ");
-	printf("%s:", title);
-
-	for (len = 0; title[len]; len++)
-		;
-
-	for (i = 0; i < size - 3 - len; i++)
-		printf(" ");
-}
-
-/**
- * main - print an ELF header and such
- * @argc: count of args
- * @argv: vector of args
- * Return: int or exit code
- */
-int main(int argc, char **argv)
-{
-	/* declarations */
-	int fd, readVal, i;
-	char buffer[16];
-	char match[4] = {0x7f, 'E', 'L', 'F'};
-
-	/* too many args? too few? */
-	if (argc != 2)
-		errors("Improper usage\n");
-
-	/* file descriptor, opening */
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		errors("Could not open the file\n");
-
-	/* reading */
-	readVal = read(fd, buffer, 16);
-	if (readVal == -1)
-		errors("Could not read from the file\n");
-
-	/* checking for elfage */
-	for (i = 0; i < 4; i++)
+	switch (buffer[7])
 	{
-		if (buffer[i] != match[i])
-			errors("Sorry, it's not an ELF file!\n");
+		case ELFOSABI_SYSV:
+			printf("UNIX - System V");
+			break;
+		case ELFOSABI_HPUX:
+			printf("UNIX - HP-UX");
+			break;
+			errors("Could not read from the file\n");
+			/* checking for elfage */
+			for (i = 0; i < 4; i++)
+			{
+				if (buffer[i] != match[i])
+					errors("Sorry, it's not an ELF file!\n");
+			}
+			/*printing the header! */
+			printf("ELF Header:\n");
+			pmagic(buffer);
+			pclass(buffer);
+			pdata(buffer);
+			pversion(buffer);
+			pos(buffer);
+			pABIversion(buffer);
+			ptype(buffer);
+			pentry();
+			/* close and check for close */
+			if (close(fd))
+				errors("Could not close the file");
+
+			return (0);
 	}
 
-	/* printing the header! */
-	printf("ELF Header:\n");
-	print_magic(buffer);
-	print_class(buffer);
-	print_data(buffer);
-	print_version(buffer);
-	print_OS_ABI(buffer);
-	print_ABI_version(buffer);
-	print_type(buffer);
-	print_entry();
 
-	/* close and check for close */
-	if (close(fd))
-		errors("Could not close the file");
-
-	return (0);
-}
